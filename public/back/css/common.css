@@ -1,7 +1,9 @@
 .body_bg {
   background-color: #222D32;
 }
-
+body {
+  height: 800px;
+}
 a:link,
 a:visited,
 a:hover,
@@ -128,6 +130,7 @@ a:active {
   padding-left: 180px;
   left:0;
   top:0;
+  z-index: 666;
   background-color: #3C8DBC;
   transition: all 1s;
 }
@@ -142,3 +145,12 @@ a:active {
   font-size: 20px;
   text-align: center;
 }
+
+/* user页面图表 */
+   .echarts_1,
+   .echarts_2  {
+    width: 48%;
+    height: 400px;
+  }
+
+
