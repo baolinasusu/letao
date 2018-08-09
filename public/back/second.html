@@ -56,8 +56,9 @@
         <i class="glyphicon glyphicon-log-out"></i>
       </a>
     </div>
-    <!-- 路径导航 -->
+    
     <div class="container-fluid">
+      <!-- 路径导航 -->
       <ol class="breadcrumb mt_20">
         <li>
           <a href="index.html">管理系统</a>
@@ -65,12 +66,36 @@
         <li class="active">分类管理</li>
         <li class="active">二级分类</li>
       </ol>
+      <!-- 主体内容 -->
+      <div class="lt_content">
+         <!-- 添加按钮 -->
+         <button class="btn btn-default" id="addBtn">添加分类</button>
+          <!-- 表格 -->
+          <table class="table table-bordered table-hover mt_20">
+            <thead>
+              <tr>
+                <th width="10%">序号</th>
+                <th width="30%">一级分类名称</th>
+                <th width="30%">二级分类名称</th>
+                <th width="30%">二级分类LOGO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 挖个坑 -->
+            </tbody>
+          </table>
+
+          <!-- 分页标签 -->
+          <div class="text-right">
+            <ul id="paginator"></ul>
+          </div>
+      </div>
     </div>
   </div>
-  <!-- 模态框 -->
+  <!-- 退出模态框 -->
   <!-- Modal -->
   <div class="modal fade" id="logoutModal" tabindex="-1" >
-    <div class="modal-dialog modal-lg" >
+    <div class="modal-dialog modal-sm" >
       <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
@@ -86,12 +111,58 @@
       </div>
     </div>
   </div>
+  <!-- 添加模态框 -->
+  <div class="modal fade" id="addModal" tabindex="-1" >
+      <div class="modal-dialog modal-sm" >
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            <h4 class="modal-title">添加分类</h4>
+          </div>
+          <div class="modal-body">
+            <!-- 下拉菜单 -->
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Dropdown
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" id="logoutBtn">添加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- 渲染模板 -->
+  <script type="text/html" id="secondtmp">
+   {{each rows v i}}
+      <tr>
+          <td>{{i+1+(page-1)*size}}</td>
+          <td>{{v.categoryName}}</td>
+          <td>{{v.brandName}}</td>
+          <td><img src="{{ v.brandLogo }}" height="50" alt=""></td>
+      </tr>
+   {{/each}}
+  </script>
 
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
   <script src="lib/nprogress/nprogress.js"></script>
+  <script src="lib//artTemplate/template-web.js"></script>
+  <script src="lib//bootstrap-paginator/bootstrap-paginator.min.js"></script>
   <script src="js/common.js"></script>
+  <script src="js/second.js"></script>
 </body>
 
 </html>

@@ -25,7 +25,6 @@ $(function(){
    echarts_1.setOption(option1);
 
    
-
     // 图表二
    // 基于准备好的dom，初始化echarts实例
    var echarts_2 = echarts.init(document.querySelector('.echarts_2'));

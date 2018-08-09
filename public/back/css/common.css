@@ -115,7 +115,6 @@ a:active {
 /* 右侧 */
 .lt_main {
   height: 2000px;
-  background-color: pink;
   padding-top: 50px;
   padding-left: 180px;
   transition: all 1s;
@@ -146,11 +145,17 @@ a:active {
   text-align: center;
 }
 
-/* user页面图表 */
+/* index页面图表 */
    .echarts_1,
    .echarts_2  {
     width: 48%;
     height: 400px;
   }
+/* user页面图表 */
+.table.table-bordered th,
+.table.table-bordered td {
+  text-align: center;
+  vertical-align: middle;
+}
 
 
