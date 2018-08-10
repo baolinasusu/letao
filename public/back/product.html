@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>乐淘</title>
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="lib/bootstrap-validator/css/bootstrapValidator.min.css">
   <link rel="stylesheet" href="lib/nprogress/nprogress.css">
@@ -34,7 +34,7 @@
       <li >
         <a href="javascript:;" class="category">
           <i class="glyphicon glyphicon-th-list"></i>分类管理</a>
-        <div class="child" style="display:none">
+        <div class="child" style="display: none">
           <a href="first.html">一级分类</a>
           <a href="second.html">二级分类</a>
         </div>
@@ -56,20 +56,49 @@
         <i class="glyphicon glyphicon-log-out"></i>
       </a>
     </div>
-    <!-- 路径导航 -->
+    
     <div class="container-fluid">
+      <!-- 路径导航 -->
       <ol class="breadcrumb mt_20">
         <li>
           <a href="index.html">管理系统</a>
         </li>
         <li class="active">商品管理</li>
       </ol>
+      <!-- 主体内容 -->
+      <div class="lt_content">
+         <!-- 添加按钮 -->
+         <button class="btn btn-default" id="addBtn">添加商品</button>
+          <!-- 表格 -->
+          <table class="table table-bordered table-hover mt_20">
+            <thead>
+              <tr>
+               						
+                <th width="10%">序号</th>
+                <th width="25%">商品名称</th>
+                <th width="25%">商品描述</th>
+                <th width="10%">商品库存</th>
+                <th width="10%">商品尺寸</th>
+                <th width="10%">商品状态</th>
+                <th width="10%">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 挖个坑 -->
+            </tbody>
+          </table>
+
+          <!-- 分页标签 -->
+          <div class="text-right">
+            <ul id="paginator"></ul>
+          </div>
+      </div>
     </div>
   </div>
-  <!-- 模态框 -->
+  <!-- 退出模态框 -->
   <!-- Modal -->
   <div class="modal fade" id="logoutModal" tabindex="-1" >
-    <div class="modal-dialog modal-lg" >
+    <div class="modal-dialog modal-sm" >
       <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
@@ -85,12 +114,112 @@
       </div>
     </div>
   </div>
+  <!-- 添加模态框 -->
+  <div class="modal fade" id="addModal" tabindex="-1" >
+      <div class="modal-dialog" >
+        <div class="modal-content">
+            <form id="form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                  <h4 class="modal-title">添加分类</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                      <!-- 下拉菜单 一级分类 -->
+                      <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" >
+                            <span id="dropdownText">请选择二级分类</span>
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" >
+                            <!-- 挖个坑 -->
+                          </ul>
+                      </div>
+                      <!-- 二级分类Id  -->
+                      <input type="hidden" name="brandId">
+                      <!-- 产品上架状态 默认1 -->
+                      <input type="hidden" name="statu" value="1">
+                  </div>
+                  <div class="form-group">
+                    <!-- 商品名称 -->
+                      <textarea name="proName"  class="form-control"  placeholder="请输入商品名称" cols="30" rows="3"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <!-- 商品描述 -->
+                      <input type="text" name="proDesc" class="form-control"  placeholder="请输入商品描述">
+                  </div>
+                  <div class="form-group">
+                    <!-- 商品库存 -->
+                      <input type="text" name="num" class="form-control"  placeholder="请输入商品库存">
+                  </div>
+                  <div class="form-group">
+                    <!-- 商品尺码 -->
+                      <input type="text" name="size" class="form-control"  placeholder="请输入商品尺码">
+                  </div>
+                  <div class="form-group">
+                    <!-- 商品原价 -->
+                      <input type="text" name="oldPrice" class="form-control"  placeholder="请输入商品原价">
+                  </div>
+                  <div class="form-group">
+                      <!-- 商品现价 -->
+                        <input type="text" name="price" class="form-control"  placeholder="请输入商品现价">
+                    </div>
+                  <div class="form-group">
+                    <!-- 上传图片文件 -->
+                      <label class="btn btn-default" for="fileupload">上传图片</label>
+                      <input type="file" name="pic1"  multiple  id="fileupload" data-url="/product/addProductPic" style="display: none" >
+                  </div>
+                  <div class="form-group" id="imgBox">
+                    <input type="hidden" name="picStatus">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  <button type="submit" class="btn btn-primary" id="submitBtn">添加</button>
+                </div>
+           </form>
+        </div>
+      </div>
+    </div>
+
+  <!-- 表格渲染模板 -->
+  <script type="text/html" id="productTmp">
+   {{each rows v i}}
+    <tr>
+        <td>{{ i+1+(page-1)*size }}</td>
+        <td>{{ v.proName }}</td>
+        <td>{{ v.proDesc }}</td>
+        <td>{{ v.num }}</td>
+        <td>{{ v.size }}</td>
+        <td>{{v.statu === 1 ? "已上架" : "已下架"}}</td>
+        <td>
+          {{if v.statu === 1}}
+          <button class="btn btn-danger">下架</button>
+          {{else}}
+          <button class="btn btn-success">上架</button>
+          {{/if}}
+        </td>
+      </tr>
+   {{/each}}
+  </script>
+  <!-- 模态框一级分类渲染模板 -->
+  <script type="text/html" id="dropdownTmp">
+    {{each rows v i}}
+     <li><a href="#" data-id="{{v.id}}">{{ v.brandName }}</a></li>
+    {{/each}}
+  </script>
+
 
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
   <script src="lib/nprogress/nprogress.js"></script>
+  <script src="lib//artTemplate/template-web.js"></script>
+  <script src="lib//bootstrap-paginator/bootstrap-paginator.min.js"></script>
+  <script src="lib/jquery-fileupload/jquery.ui.widget.js"></script>
+  <script src="lib/jquery-fileupload/jquery.fileupload.js"></script>
   <script src="js/common.js"></script>
+  <script src="js/product.js"></script>
 </body>
 
 </html>
